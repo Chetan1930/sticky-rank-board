@@ -6,7 +6,7 @@ const generateMockUsers = (count: number) => {
   
   const randomNames = [
     "RiMaJhĪM♥️", "PRITESH", "KRISHU RAJP", "THAKUR RAN VIJAY SINGH",
-    "MOKKU🔥", "⚡O¥H♻️🌱", ""ƇābĦĭī"", "MR_RAJPUT", "_PHIL_❤️", "Devil",
+    "MOKKU🔥", "⚡O¥H♻️🌱", "ƇābĦĭī", "MR_RAJPUT", "_PHIL_❤️", "Devil",
     "Alex", "Emma", "Sophia", "Liam", "Noah", "Jackson", "Olivia", "Aiden",
     "Isabella", "Lucas", "Mia", "Caden", "Aria", "Grayson", "Riley", "Mason",
     "Zoe", "Ethan", "Lily", "Logan", "Abigail"
