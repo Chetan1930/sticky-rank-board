@@ -18,8 +18,11 @@ const TopRanks: React.FC<TopRanksProps> = ({ topUsers }) => {
   // Sort users by rank (ensure 1st, 2nd, 3rd are in correct order)
   const sortedTopUsers = [...topUsers].sort((a, b) => a.rank - b.rank);
   
-  // We need to rearrange them so that 2nd is on the left, 1st in the center, and 3rd on the right
-  const displayOrder = [sortedTopUsers[1], sortedTopUsers[0], sortedTopUsers[2]];
+  // We need to ensure we have 3 users before trying to rearrange them
+  // Display order should be: 2nd on left, 1st in center, 3rd on right
+  const displayOrder = sortedTopUsers.length >= 3 
+    ? [sortedTopUsers[1], sortedTopUsers[0], sortedTopUsers[2]]
+    : sortedTopUsers; // If we don't have 3 users, just use what we have
 
   return (
     <div className="top-ranks-section">

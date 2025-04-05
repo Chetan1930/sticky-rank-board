@@ -21,28 +21,38 @@ const RankingBoard: React.FC = () => {
   const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
-    // Generate mock data
-    const { users, lastPlaceUser } = generateMockUsers(100);
-    setAllUsers(users);
-    
-    // Extract top 3 users
-    const top3 = users.filter(user => user.rank <= 3);
-    setTopUsers(top3);
-    
-    setLastPlaceUser(lastPlaceUser);
-    
-    // Calculate total pages
-    const nonTopUserCount = users.length - 3;
-    setTotalPages(Math.ceil(nonTopUserCount / USERS_PER_PAGE));
+    try {
+      // Generate mock data
+      const { users, lastPlaceUser } = generateMockUsers(100);
+      setAllUsers(users);
+      
+      // Extract top 3 users (or fewer if not enough users)
+      const top3 = users.filter(user => user.rank <= 3);
+      setTopUsers(top3);
+      
+      setLastPlaceUser(lastPlaceUser);
+      
+      // Calculate total pages
+      const nonTopUserCount = users.length - Math.min(3, top3.length);
+      setTotalPages(Math.ceil(nonTopUserCount / USERS_PER_PAGE));
+    } catch (error) {
+      console.error("Error initializing ranking board:", error);
+      // Set default empty arrays to prevent undefined errors
+      setAllUsers([]);
+      setTopUsers([]);
+    }
   }, []);
 
   useEffect(() => {
     // Update current users based on pagination
-    const startIdx = 3 + (currentPage - 1) * USERS_PER_PAGE;
-    const endIdx = Math.min(startIdx + USERS_PER_PAGE, allUsers.length);
-    const pageUsers = allUsers.slice(startIdx, endIdx);
-    setCurrentUsers(pageUsers);
-  }, [currentPage, allUsers]);
+    if (allUsers.length > 0) {
+      const topCount = Math.min(3, topUsers.length);
+      const startIdx = topCount + (currentPage - 1) * USERS_PER_PAGE;
+      const endIdx = Math.min(startIdx + USERS_PER_PAGE, allUsers.length);
+      const pageUsers = allUsers.slice(startIdx, endIdx);
+      setCurrentUsers(pageUsers);
+    }
+  }, [currentPage, allUsers, topUsers]);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -66,7 +76,7 @@ const RankingBoard: React.FC = () => {
       <TopRanks topUsers={topUsers} />
       
       {/* List of ranks 4-100 with pagination */}
-      <ListRanks users={currentUsers} />
+      {currentUsers.length > 0 && <ListRanks users={currentUsers} />}
       
       {/* Show last place user on the last page */}
       {currentPage === totalPages && lastPlaceUser && (
