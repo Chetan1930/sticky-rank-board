@@ -8,7 +8,7 @@ body {
 }
 
 .ranking-container {
-  max-width: 600px;
+  max-width: 800px;
   margin: 0 auto;
   background-color: white;
   min-height: 100vh;
@@ -313,6 +313,7 @@ body {
   margin-right: 5px;
 }
 
+/* Bottom navigation styles */
 .bottom-navigation {
   display: flex;
   justify-content: space-around;
@@ -324,14 +325,37 @@ body {
   z-index: 10;
 }
 
+/* Web navigation styles */
+.web-navigation {
+  background-color: #333;
+  padding: 12px;
+  border-top: 1px solid #444;
+}
+
 .bottom-nav-item {
   color: #999;
-  font-size: 24px;
-  padding: 8px;
+  font-size: 18px;
+  padding: 8px 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s;
+}
+
+.bottom-nav-item:hover {
+  color: #fff;
 }
 
 .bottom-nav-item.active {
   color: #fff;
+}
+
+.nav-icon {
+  margin-right: 8px;
+}
+
+.nav-label {
+  font-size: 15px;
 }
 
 /* Last place styling for position 999+ */
@@ -352,5 +376,46 @@ body {
   
   .username {
     font-size: 11px;
+  }
+
+  .nav-label {
+    display: none;
+  }
+
+  .web-navigation {
+    padding: 8px;
+  }
+}
+
+/* Desktop-specific styles */
+@media (min-width: 768px) {
+  .ranking-container {
+    max-width: 800px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .top-ranks-section {
+    padding: 30px 20px;
+  }
+
+  .avatar-container {
+    width: 90px;
+    height: 90px;
+  }
+
+  .username {
+    font-size: 14px;
+  }
+
+  .bottom-nav-item {
+    border-radius: 4px;
+    padding: 8px 16px;
+  }
+
+  .bottom-nav-item:hover {
+    background-color: #444;
   }
 }
